@@ -10,9 +10,20 @@ ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 /app/tailscaled --state=/var/lib/tailscale/tailscaled.state \
     --socket=/var/run/tailscale/tailscaled.sock \
     --verbose=1 \
-    --port 41641
-/app/tailscale up \
+    --port 41641 &
+sleep 5
+if [ ! -S /var/run/tailscale/tailscaled.sock ]; then
+    echo '[FATAL] tailscaled.sock does not exist. exit!'
+    exit 1
+fi
+
+until /app/tailscale up \
     --authkey=${TAILSCALE_AUTHKEY} \
     --hostname=fly-${FLY_REGION} \
     --advertise-exit-node
+do
+    sleep 0.1
+done
+
+echo 'HOORAY! THANK YOU FOR FLYING!'
 sleep infinity
