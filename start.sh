@@ -1,6 +1,6 @@
 #!/bin/sh
 
-modprobe xt_mark # Reports issues with it in; commenting soon to see if anything major changes.
+#modprobe xt_mark
 echo 'net.ipv4.ip_forward = 1' | tee -a /etc/sysctl.conf
 echo 'net.ipv6.conf.all.forwarding = 1' | tee -a /etc/sysctl.conf
 sysctl -p /etc/sysctl.conf
