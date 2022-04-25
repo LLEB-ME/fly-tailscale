@@ -17,10 +17,7 @@ if [ ! -S /var/run/tailscale/tailscaled.sock ]; then
     exit 1
 fi
 
-until /app/tailscale up \
-    --authkey=${TAILSCALE_AUTHKEY} \
-    --hostname=fly-${FLY_REGION} \
-    --advertise-exit-node
+until /app/tailscale up --authkey=${TAILSCALE_AUTHKEY} --hostname=fly-${FLY_REGION} --advertise-exit-node
 do
     sleep 0.1
 done
