@@ -16,4 +16,5 @@ COPY --from=tailscale /app/tailscaled /app/tailscaled
 COPY --from=tailscale /app/tailscale /app/tailscale
 RUN mkdir -p /var/run/tailscale /var/cache/tailscale /var/lib/tailscale
 
+chmod +x /app/start.sh
 CMD ["/app/start.sh"]
