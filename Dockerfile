@@ -10,7 +10,7 @@ RUN wget https://pkgs.tailscale.com/stable/${TSFILE} && tar xzf ${TSFILE} --stri
 COPY . ./
 
 FROM alpine:latest
-RUN apk update && apk add ca-certificates iptables ip6tables && rm -rf /var/cache/apk/*
+RUN apk update && apk add --no-cache ca-certificates iptables ip6tables && rm -rf /var/cache/apk/*
 COPY --from=builder /app/start.sh /app/start.sh
 COPY --from=tailscale /app/tailscaled /app/tailscaled
 COPY --from=tailscale /app/tailscale /app/tailscale
